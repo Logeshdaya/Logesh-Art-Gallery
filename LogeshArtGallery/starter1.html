@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logesh Art Gallery</title>
+    <link rel="icon" type="image/png" href="images/Screenshot_2024-10-29-21-31-32-73_1c337646f29875672b5a61192b9010f9-removebg-preview.png">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/babel-standalone@6.26.0/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Tamil:wght@400;700&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff6f00 0%, #2e7d32 100%);
+            color: #fff;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .tamil-border {
+            border: 2px solid transparent;
+            border-image: linear-gradient(45deg, #ff6f00, #1e88e5) 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tamil-border:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #ff6f00;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        .section-title::before {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            bottom: -8px;
+            left: 25%;
+            background: linear-gradient(to right, #ff6f00, #1e88e5);
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const artworks = [
+            { id: 1, title: "Lord Vishnu", image: "images/IMG_5203.JPG", description: "The Protector and Preserver, Deeply worshipped in South India." },
+            { id: 2, title: "Lord Shiva", image: "images/Screenshot_2024-02-04-13-13-24-69_92460851df6f172a4592fca41cc2d2e6.JPG", description: "Dakshinamurthy is a meditative aspect of Shiva." },
+            { id: 3, title: "Rajendra Chola", image: "images/IMG_4910.jpeg", description: "Undefeated Valarous Chola king, Who Controlled Indian Ocean and Bay of Bengal." },
+            { id: 4, title: "Goddess Meenakshi", image: "images/IMG_20240126_2312562.JPG", description: "Vibrant depiction of Meenakshi Amman, divine protector." },
+        ];
+
+        const Navbar = () => (
+            <nav className="glass-effect p-6 fixed w-full z-10">
+                <div className="container mx-auto flex justify-between items-center">
+                    <h1 className="text-3xl font-bold text-white flex items-center space-x-2">
+                        <img 
+                            src="images/Screenshot_2024-10-29-21-31-32-73_1c337646f29875672b5a61192b9010f9-removebg-preview.png" 
+                            alt="Logesh Art Gallery Logo" 
+                            className="w-12 h-12 object-contain" 
+                            onError={(e) => { e.target.src = "https://via.placeholder.com/48?text=Logo"; }} 
+                        />
+                        <span>Logesh Art Gallery</span>
+                    </h1>
+                    <div className="space-x-6">
+                        <a href="#home" className="text-white nav-link">Home</a>
+                        <a href="#gallery" className="text-white nav-link">Gallery</a>
+                        <a href="#about" className="text-white nav-link">About</a>
+                        <a href="#contact" className="text-white nav-link">Contact</a>
+                    </div>
+                </div>
+            </nav>
+        );
+
+        const Hero = () => (
+            <section id="home" className="h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: "url('images/IMG_4902.jpeg')" }}>
+                <a href="tamil-art-culture.html" className="text-center glass-effect p-10 rounded tamil-border">
+                    <h2 className="text-5xl font-bold mb-4 text-white">Tamil Art & Culture</h2>
+                    <p className="text-xl text-white">Discover divine sculptures of Hindu gods and Tamil kings</p>
+                    <p className="text-sm text-gray-300 mt-2">(click)</p>
+                </a>
+            </section>
+        );
+
+        const Gallery = () => (
+            <section id="gallery" className="py-20 bg-cover bg-center" style={{ backgroundImage: "url('images/z7Y9O_1554213239.jpg')" }}>
+                <div className="container mx-auto">
+                    <h2 className="text-4xl font-bold text-center mb-12 text-white section-title">Artworks</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {artworks.map(art => (
+                            <div key={art.id} className="glass-effect p-6 rounded tamil-border">
+                                <img src={art.image} alt={art.title} className="w-full h-64 object-cover rounded mb-4" />
+                                <h3 className="text-xl font-bold text-white">{art.title}</h3>
+                                <p className="text-gray-200">{art.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="mt-12 text-center">
+                        <a href="more-artworks.html" className="glass-effect tamil-border text-white font-bold py-2 px-6 rounded hover:bg-ff6f00 transition-colors">
+                            More
+                        </a>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const About = () => (
+            <section id="about" className="py-20 bg-opacity-50 bg-black" style={{ backgroundImage: "url('images/Chola-Dynastys-Maritime-Power-Naval-Expeditions-Conquests-in-Southeast-Asia.jpeg.jpg')" }}>
+                <div className="container mx-auto">
+                    <h2 className="text-4xl font-bold text-center mb-12 text-white section-title">About Me</h2>
+                    <div className="flex flex-col md:flex-row items-center">
+                        <img src="images/IMG_20250102_204822_635.jpg" alt="Artist" className="w-64 h-64 rounded-full mb-8 md:mb-0 md:mr-8" />
+                        <div className="glass-effect p-6 rounded">
+                            <p className="text-lg text-gray-900">
+                                I am a passionate artist dedicated to preserving Tamil culture through intricate sculptures and artworks of Hindu gods and Tamil kings. My work blends traditional craftsmanship with modern creativity, inspired by the rich heritage of Tamil Nadu.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const Contact = () => {
+            const [formStatus, setFormStatus] = React.useState(null);
+            const [errorMessage, setErrorMessage] = React.useState('');
+
+            const handleSubmit = async (event) => {
+                event.preventDefault();
+                const form = event.target;
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: new FormData(form),
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    if (response.ok) {
+                        setFormStatus('success');
+                        setErrorMessage('');
+                        form.reset();
+                        setTimeout(() => setFormStatus(null), 5000);
+                    } else {
+                        const errorData = await response.json();
+                        setFormStatus('error');
+                        setErrorMessage(errorData.error || 'Failed to send message. Please try again.');
+                        if (response.status === 404) {
+                            setErrorMessage('Form not found. Please check the Formspree endpoint or contact the site owner.');
+                        } else if (response.status === 429) {
+                            setErrorMessage('Form submission limit reached. Please try again later.');
+                        } else if (response.status === 400) {
+                            setErrorMessage('Invalid form submission. Ensure you’re using a web server and check the form setup.');
+                        }
+                    }
+                } catch (error) {
+                    setFormStatus('error');
+                    setErrorMessage('Network error. Please check your connection and try again.');
+                }
+            };
+
+            return (
+                <section id="contact" className="py-10" style={{ backgroundImage: "url('images/0d756d102a160bd2bcc810e93886735f.jpg')" }}>
+  <div className="container mx-auto">
+    <h2 className="text-4xl font-bold text-center mb-12 text-white section-title">Contact Me</h2>
+    <div className="max-w-md mx-auto glass-effect p-6 rounded tamil-border">
+      <form action="https://formspree.io/f/movldpbp" method="POST" className="space-y-4">
+        <input type="hidden" name="_subject" value="New Contact Form Submission - Logesh Art Gallery" />
+        <input type="hidden" name="_next" value="http://localhost:8000/starter1.html#contact" />
+        <input type="text" name="_gotcha" style={{ display: 'none' }} />
+        
+        <input 
+          type="text" 
+          name="name" 
+          placeholder="Your good name" 
+          className="w-full p-2 bg-transparent border border-white text-white placeholder-white rounded tamil-border focus:outline-none focus:ring-2 focus:ring-ff6f00" 
+          required 
+        />
+        <input 
+          type="email" 
+          name="email" 
+          placeholder="Your email address" 
+          className="w-full p-2 bg-transparent border border-white text-white placeholder-white rounded tamil-border focus:outline-none focus:ring-2 focus:ring-ff6f00" 
+          required 
+        />
+        <textarea 
+          name="message" 
+          placeholder="What do you want to say?" 
+          className="w-full p-2 bg-transparent border border-white text-white placeholder-white rounded tamil-border focus:outline-none focus:ring-2 focus:ring-ff6f00 h-24" 
+          required 
+        ></textarea>
+        <button 
+          type="submit" 
+          className="w-full bg-ff6f00 text-white p-2 rounded tamil-border hover:bg-1e88e5 transition-colors"
+        >
+          Send Message
+        </button>
+      </form>
+      <p className="text-gray-300 text-sm text-center mt-4">
+        If the form fails, email me directly at <a href="mailto:logeshdaya22@gmail.com" className="text-ff6f00 hover:underline">logeshdaya22@gmail.com</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+            );
+        };
+
+        const Footer = () => (
+            <footer className="glass-effect p-6 text-center">
+                <p className="text-white">© 2025 Logesh Art Gallery. All rights reserved.</p>
+            </footer>
+        );
+
+        const App = () => (
+            <div>
+                <Navbar />
+                <Hero />
+                <Gallery />
+                <About />
+                <Contact />
+                <Footer />
+            </div>
+        );
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
